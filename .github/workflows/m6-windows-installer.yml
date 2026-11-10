@@ -53,4 +53,13 @@ jobs:
           path: |
             build/windows-build.log
             build/notices/**
+      - name: Summarize build failure
+        if: failure()
+        shell: powershell
+        run: |
+          if (Test-Path build/windows-build.log) {
+            $tail = (Get-Content build/windows-build.log -Tail 100) -join "`n"
+            if ($env:GH_TOKEN) { $tail = $tail.Replace($env:GH_TOKEN, '[redacted]') }
+            @('### Windows packaging diagnostic', '', '```text', $tail, '```') | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
+          }
 # Builds a candidate; does not publish, sign, or qualify a clean Windows laptop.
