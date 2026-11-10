@@ -1,25 +1,25 @@
 
 Running 13 tests using 1 worker
 
-(node:226824) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:233283) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
-  ✓   1 tests/e2e/installer.spec.ts:7:1 › computer setup requires download consent and exports performance metadata without a terminal (1.7s)
+  ✓   1 tests/e2e/installer.spec.ts:7:1 › computer setup requires download consent and exports performance metadata without a terminal (1.9s)
 
-  ✓   2 tests/e2e/m1.spec.ts:8:1 › real desktop + browser share persisted projects and session states (5.2s)
+  ✓   2 tests/e2e/m1.spec.ts:8:1 › real desktop + browser share persisted projects and session states (5.1s)
   ✓   3 tests/e2e/m1.spec.ts:89:1 › quitting stops a live session and closes the backend listener (2.6s)
   ✓   4 tests/e2e/m1.spec.ts:113:1 › open project dialogs retain their target when another view changes selection (1.8s)
-  ✓   5 tests/e2e/m1.spec.ts:147:1 › desktop crash closes the owned API and recovery marks the session interrupted (2.6s)
+  ✓   5 tests/e2e/m1.spec.ts:147:1 › desktop crash closes the owned API and recovery marks the session interrupted (2.2s)
 
-  ✓   6 tests/e2e/m1.spec.ts:169:1 › M3 transcript review and speaker edits are project scoped (text fixtures, no ASR claim) (3.5s)
+  ✓   6 tests/e2e/m1.spec.ts:169:1 › M3 transcript review and speaker edits are project scoped (text fixtures, no ASR claim) (3.3s)
   ✓   7 tests/e2e/m2.spec.ts:7:1 › M2 real upload, drag/drop, indexing, citations, revisions, scoped search and deletion (3.9s)
 
   ✓   8 tests/e2e/m4.spec.ts:11:1 › M4 real Electron button and native shortcut suppress no-question answers; missing model is explicit (2.3s)
 
   ✓   9 tests/e2e/m4.spec.ts:67:1 › M4 saved-briefing rendering, citation checks, project isolation and restart (explicit response fixture) (3.5s)
 
-  ✓  10 tests/e2e/m5.spec.ts:8:1 › M5 actual companion hides for unknown/broader sharing, survives shortcut, and settings persist (4.1s)
-  ✓  11 tests/e2e/m6.spec.ts:7:1 › M6 wizard uses real diagnostics, offline checks and explicit limited completion; acknowledgement persists (4.7s)
-  ✓  12 tests/e2e/m6.spec.ts:55:1 › M6 desktop-authorized directory import uses actual worker and reports files without claiming inference (1.6s)
-  ✓  13 tests/e2e/m7.spec.ts:7:1 › M7 qualification controls report real availability and never certify an idle app (1.5s)
+  ✓  10 tests/e2e/m5.spec.ts:8:1 › M5 actual companion hides for unknown/broader sharing, survives shortcut, and settings persist (3.9s)
+  ✓  11 tests/e2e/m6.spec.ts:7:1 › M6 wizard uses real diagnostics, offline checks and explicit limited completion; acknowledgement persists (4.2s)
+  ✓  12 tests/e2e/m6.spec.ts:55:1 › M6 desktop-authorized directory import uses actual worker and reports files without claiming inference (1.4s)
+  ✓  13 tests/e2e/m7.spec.ts:7:1 › M7 qualification controls report real availability and never certify an idle app (1.2s)
 
-  13 passed (40.1s)
+  13 passed (38.3s)

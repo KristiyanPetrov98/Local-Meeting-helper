@@ -3,7 +3,9 @@
 A local-first meeting workspace for Windows 11 and the RTX 4080 Laptop GPU.
 
 Latest update: [0.2 installer automation and transcription latency work](docs/installer-and-latency.md). The [retrieval-stall fix](docs/retrieval-stall-fix.md) is included.
-**M1 through M7 implementation code is present; release qualification is blocked.** Portable integration, security, dependency and startup checks pass. The Windows installer build/install and real laptop acceptance remain pending; see the M7 report. M3 Windows/live-model acceptance is unverified; see the
+**Windows installer candidate available:** open the [successful Windows build](https://github.com/KristiyanPetrov98/Local-Meeting-helper/actions/runs/42834171639), download **pm-copilot-windows-installer-candidate** under Artifacts (about 1.89 GB), extract it and run `PM-Copilot-0.2.0-x64-Setup.exe`. Quit the old source app first. Launch from the Start menu and use **Set up this computer** for model preparation. Python, Node and the .NET SDK are bundled or unnecessary on the installed machine. The candidate is unsigned; clean-machine installation and actual laptop performance still need testing.
+
+**M1 through M7 implementation code is present; release qualification is blocked.** Portable integration, security, dependency and startup checks pass. The Windows installer build and packaged desktop workflow pass; clean-machine installation and real laptop acceptance remain pending; see the M7 report. M3 Windows/live-model acceptance is unverified; see the
 [M3 implementation and Windows test guide](docs/milestone-3.md).
 
 M1 provides Electron lifecycle/tray, a React dashboard and floating companion, persistent
@@ -14,7 +16,7 @@ project-scoped transcript history, and speaker editing. Capture is explicitly op
 M2 adds project document ingestion, local retrieval and verifiable source citations.
 M4 adds manual question detection, bounded local Ollama briefings and response history.
 M5 adds a Windows selected-window helper, ephemeral vision/risk analysis, declared-sharing
-safeguards and resource scheduling. M6 adds installer build scripts and a guided setup wizard. A Windows Setup.exe has not been produced in this Linux environment. Real Qwen3-VL quality and RTX 4080
+safeguards and resource scheduling. M6 adds installer build scripts and a guided setup wizard. A Windows Setup.exe was built in Windows CI and its packaged desktop workflow passed. Real Qwen3-VL quality and RTX 4080
 concurrency remain unverified; see [M4 results and manual tests](docs/milestone-4.md).
 
 M0 hardware feasibility remains unverified; its probes and reports are preserved.
@@ -35,7 +37,7 @@ requirements stay blocked; limited mode must be acknowledged explicitly.
 
 On a Windows x64 build host, run `scripts/package-windows.ps1` or dispatch the manual
 Windows installer workflow. The packaged app bundles its backend/runtime/helpers;
-end users do not need Python, Node or a .NET SDK. **Windows installer candidates are built by GitHub Actions; a passing Windows build and laptop test are still required.** See [M6 build status and clean-machine tests](docs/milestone-6.md).
+end users do not need Python, Node or a .NET SDK. **The Windows installer build and packaged startup tests pass in GitHub Actions; clean-machine installation and laptop acceptance are still required.** See [M6 build status and clean-machine tests](docs/milestone-6.md).
 
 ## Test M5 screen and resource integration
 

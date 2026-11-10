@@ -1,16 +1,15 @@
 {
   "date": "2026-11-10",
   "version": "0.2.0",
-  "source_digest": "fec65fad6fa72759c0ed8cec4eb7e3d30246dc70578529d603c46d94b46a6856",
+  "source_digest": "d575e8f5e6c9247187367aca5b6dd5b45a709db1573178e309cbac149bb766b7",
   "status": "portable_checks_passed",
   "tests_passed": {
-    "api": 272,
+    "api": 273,
     "vitest": 14,
     "electron_source": 13,
     "m0_unittest": 5
   },
-  "independent_tests_passed": 304,
-  "failed_final_automated_tests": 0,
+  "independent_tests_passed": 305,
   "skipped_in_executed_suites": 0,
   "typecheck": "passed",
   "production_build": "passed",
@@ -25,14 +24,31 @@
   },
   "actual_supervisor_test": "Actual fixture child starts once, answers loopback version, stops; external server is preserved.",
   "actual_gui_export_test": "Real Electron native Save dialog target receives sanitized performance JSON with desktop version.",
-  "windows_vendor_staging": "Not executed on this Linux host; release API unavailable through network proxy",
-  "windows_engine_smoke": "Implemented as required pre-packaging gate; not run here",
-  "windows_installer_build": "Automatically triggered by relevant main pushes; status not yet verified",
+  "windows_vendor_staging": "Passed verified vendor downloads, FFmpeg configuration and Microsoft signature validation in successful run 42834171639.",
+  "windows_engine_smoke": "Passed required actual Windows engine start/version/shutdown in successful run 42834171639.",
+  "windows_installer_build": "Passed: https://github.com/KristiyanPetrov98/Local-Meeting-helper/actions/runs/42834171639 (19m15s).",
   "clean_machine_install": "unrun",
   "actual_windows_console_visibility": "unrun; creation-flag policy tested",
   "actual_whisper_latency_ms": null,
   "actual_8b_latency_ms": null,
   "gpu_memory_measurements": null,
   "latency_goal": "10-15 second laptop delay is not yet proved resolved; use new in-app timing report for target evidence.",
-  "release_ready": false
+  "release_ready": false,
+  "windows_self_test_regression": {
+    "reproduction": "Equal timestamps caused 18 failures in 30 local runs before the fix.",
+    "fix": "Identify synthetic Beta project by its name instead of last sorted row.",
+    "regression_test": "Passed with frozen timestamp and reversed project IDs.",
+    "setup_suite": "33 passed; full API suite 273 passed."
+  },
+  "windows_packaged_desktop": "Passed actual Electron packaged startup outside checkout, bundled document ingestion/citations and shutdown, with external Python/Node absent from PATH.",
+  "windows_frozen_backend": "Passed required imports including pyannote, actual parser worker, offline core checks and expected missing-model blocking.",
+  "windows_build_commit": "9bee2d86d377f0c531034e263562c03ce159940a",
+  "installer_artifact": {
+    "name": "pm-copilot-windows-installer-candidate",
+    "size_display": "1.89 GB",
+    "github_artifact_sha256": "108c013608c3313dd1fc6d4f0916ad28d259cee4d43bbcefb4ca7aaecffd8405",
+    "installer_filename": "PM-Copilot-0.2.0-x64-Setup.exe",
+    "installer_sha256": "Included in artifact SHA256SUMS.txt; not separately downloaded/verified in this chat."
+  },
+  "failed_final_portable_tests": 0
 }
