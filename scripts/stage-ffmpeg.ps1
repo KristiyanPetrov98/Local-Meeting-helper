@@ -5,10 +5,10 @@ Set-Location (Split-Path $PSScriptRoot -Parent)
 if ([Environment]::OSVersion.Platform -ne 'Win32NT') { throw 'Stage Windows libraries on Windows.' }
 $headers = @{ 'User-Agent' = 'PM-Copilot-packager'; Accept = 'application/vnd.github+json' }
 if ($env:GH_TOKEN) { $headers.Authorization = 'Bearer ' + $env:GH_TOKEN }
-$release = Invoke-RestMethod -Uri 'https://api.github.com/repos/BtbN/FFmpeg-Builds/releases/latest' -Headers $headers
+$release = Invoke-RestMethod -Uri 'https://api.github.com/repos/FFmpeg-Builds/FFmpeg-Builds/releases/latest' -Headers $headers
 $asset = $release.assets | Where-Object { $_.name -match '^ffmpeg-n(7|8)\.[0-9.]+-latest-win64-lgpl-shared-[0-9.]+\.zip$' } | Sort-Object name -Descending | Select-Object -First 1
 if (-not $asset -or $asset.digest -notmatch '^sha256:[a-fA-F0-9]{64}$') { throw 'A published-digest Windows LGPL shared FFmpeg 7/8 build is required.' }
-$url = 'https://github.com/BtbN/FFmpeg-Builds/releases/download/' + $release.tag_name + '/' + $asset.name
+$url = 'https://github.com/FFmpeg-Builds/FFmpeg-Builds/releases/download/' + $release.tag_name + '/' + $asset.name
 if ($asset.browser_download_url -ne $url) { throw 'Unexpected FFmpeg archive origin.' }
 $expected = $asset.digest.Substring(7).ToLowerInvariant()
 $archive = Join-Path $PWD 'build/runtime/ffmpeg.zip'
@@ -33,7 +33,7 @@ $codec = @(Get-ChildItem $stage -Recurse -Filter 'avcodec-*.dll')
 if ($codec.Count -ne 1 -or $codec[0].Directory.Name -ne 'bin') { throw 'Shared FFmpeg codec DLL inventory is invalid.' }
 $root = $codec[0].Directory.Parent.FullName
 if (-not (Get-ChildItem $root -Recurse -File | Where-Object { $_.Name -match '^(LICENSE|COPYING)' })) { throw 'FFmpeg license texts must accompany the libraries.' }
-@{ schema = 1; repository = 'BtbN/FFmpeg-Builds'; release = $release.tag_name; asset = $asset.name; archive_sha256 = $expected; source_and_build_instructions = 'https://github.com/BtbN/FFmpeg-Builds'; source_archive_url = $url; variant = 'lgpl-shared' } | ConvertTo-Json | Set-Content -Encoding ascii (Join-Path $root 'installation.json')
+@{ schema = 1; repository = 'FFmpeg-Builds/FFmpeg-Builds'; release = $release.tag_name; asset = $asset.name; archive_sha256 = $expected; source_and_build_instructions = 'https://github.com/FFmpeg-Builds/FFmpeg-Builds'; source_archive_url = $url; variant = 'lgpl-shared' } | ConvertTo-Json | Set-Content -Encoding ascii (Join-Path $root 'installation.json')
 if (Test-Path $target) { Remove-Item $target -Recurse -Force }
 Move-Item $root $target
 Remove-Item $stage -Recurse -Force
