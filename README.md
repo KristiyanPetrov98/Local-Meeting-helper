@@ -1,6 +1,8 @@
 # PM Copilot
 
 A local-first meeting workspace for Windows 11 and the RTX 4080 Laptop GPU.
+
+Latest update: [2026-11-10 retrieval-stall fix and laptop retest instructions](docs/retrieval-stall-fix.md).
 **M1 through M7 implementation code is present; release qualification is blocked.** Portable integration, security, dependency and startup checks pass. The Windows installer build/install and real laptop acceptance remain pending; see the M7 report. M3 Windows/live-model acceptance is unverified; see the
 [M3 implementation and Windows test guide](docs/milestone-3.md).
 

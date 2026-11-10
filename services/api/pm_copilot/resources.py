@@ -1,4 +1,5 @@
 """Local resource admission. Never stops capture or acquires an ASR worker lock."""
+from .ollama_http import ollama_client
 import asyncio
 import csv
 import io
@@ -41,7 +42,7 @@ class LocalProbe:
                 if process.returncode is None:process.kill();await process.wait()
         else:reason='NVIDIA memory measurements unavailable; manual inference uses CPU.'
         try:
-            async with httpx.AsyncClient(trust_env=False,follow_redirects=False,timeout=2) as client:
+            async with ollama_client(timeout=2) as client:
                 response=await client.get('http://127.0.0.1:11434/api/ps');response.raise_for_status()
                 for model in response.json()['models'][:20]:
                     name=model.get('name') or model.get('model');size=model.get('size_vram',0);ctx=model.get('context_length',0)
@@ -53,7 +54,7 @@ class LocalProbe:
 
 
     async def unload_primary(self):
-        async with httpx.AsyncClient(trust_env=False,follow_redirects=False,timeout=3) as client:
+        async with ollama_client(timeout=3) as client:
             response=await client.post('http://127.0.0.1:11434/api/generate',json={'model':MODEL,'keep_alive':0,'stream':False})
             response.raise_for_status()
             payload=response.json()

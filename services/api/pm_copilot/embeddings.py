@@ -1,4 +1,5 @@
 """Ollama embeddings through a fixed loopback address. No hosted fallback."""
+from .ollama_http import ollama_client
 import math
 import re
 import time
@@ -29,7 +30,7 @@ class OllamaEmbeddings:
     async def _call(self, path, data=None):
         try:
             import httpx
-            async with httpx.AsyncClient(trust_env=False,timeout=60,follow_redirects=False) as client:
+            async with ollama_client(timeout=60) as client:
                 response=await client.request('GET' if data is None else 'POST','http://127.0.0.1:11434/api/'+path,json=data)
                 if response.status_code!=200: raise EmbeddingUnavailable('Local Ollama request failed; check its model and runtime')
                 return response.json()

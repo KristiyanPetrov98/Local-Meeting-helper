@@ -9,6 +9,8 @@ from .embeddings import OllamaEmbeddings, EmbeddingUnavailable, cosine_candidate
 from .store import DomainError
 from .runtime import command, cwd
 
+QUERY_EMBEDDING_SECONDS = 10
+
 
 class Documents:
     def __init__(self, store, change, embedder=None):
@@ -149,13 +151,21 @@ class Documents:
             semantic=[];warning=None;digest=None
             if mode!='lexical':
                 try:
-                    async with self.embed_lock:
-                        digest=await self.embedder.identity()
-                        vector=(await self.embedder.embed([query],query=True))[0]
-                        if await self.embedder.identity(refresh=True)!=digest: raise EmbeddingUnavailable('Embedding model changed during query; retry search')
-                    rows=self.store.semantic_rows(project_id,self.embedder.model,digest)
-                    if not rows: raise EmbeddingUnavailable('No embeddings for the current model digest; reindex documents')
+                    # Include contention with indexing in the retrieval budget.
+                    # Hybrid search can use verified keyword evidence when a
+                    # local model is busy instead of consuming the answer deadline.
+                    async with asyncio.timeout(QUERY_EMBEDDING_SECONDS):
+                        async with self.embed_lock:
+                            digest=await self.embedder.identity()
+                            rows=self.store.semantic_rows(project_id,self.embedder.model,digest)
+                            if not rows: raise EmbeddingUnavailable('No embeddings for the current model digest; reindex documents')
+                            vector=(await self.embedder.embed([query],query=True))[0]
+                            if await self.embedder.identity(refresh=True)!=digest: raise EmbeddingUnavailable('Embedding model changed during query; retry search')
                     semantic=await asyncio.to_thread(cosine_candidates,rows,vector)
+                except TimeoutError:
+                    warning='Semantic retrieval exceeded its 10-second budget.'
+                    if mode=='semantic': raise DomainError(warning,503)
+                    warning+=' Verified keyword search used. Retry after indexing finishes.'
                 except EmbeddingUnavailable as exc:
                     if mode=='semantic': raise DomainError(str(exc),503)
                     warning=str(exc)

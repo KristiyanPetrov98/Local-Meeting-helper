@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-10",
+  "source_digest": "c669193ef97e9f75e2cddb4446d975081e6fbfb3294803774a93edefac6aa643",
+  "status": "passed",
+  "scope": "Source hotfix portable checks; not Windows hardware or frozen installer qualification",
+  "tests_passed": {
+    "api": 262,
+    "new_regression_cases_included_in_api": 14,
+    "electron_source": 12,
+    "vitest": 10,
+    "m0_unittest": 5
+  },
+  "independent_tests_passed": 289,
+  "failed_final_tests": 0,
+  "typecheck": "passed",
+  "production_build": "passed",
+  "python_compile": "passed",
+  "pip_check": "passed",
+  "windows_retest": "pending on operator laptop",
+  "frozen_backend_rebuild": "not run for this source hotfix",
+  "windows_installer": "unrun",
+  "observed_user_evidence": [
+    "Ollama tags reachable",
+    "Required model tags installed",
+    "Direct CPU embedding returns one embedding",
+    "pip check reports no broken requirements"
+  ],
+  "root_cause_limit": "Synchronous certificate loading and unbounded retrieval waits were identified and mitigated; the exact Windows freeze has not been reproduced.",
+  "release_ready": false
+}

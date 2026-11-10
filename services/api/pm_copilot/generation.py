@@ -1,4 +1,5 @@
 import re
+from .ollama_http import ollama_client
 from .briefing import MODEL,CONTEXT,MAX_OUTPUT_TOKENS,BriefingInvalid
 from .resources import PROFILE
 
@@ -11,7 +12,7 @@ class OllamaGeneration:
     async def _call(self,path,body=None):
         try:
             import httpx
-            async with httpx.AsyncClient(trust_env=False,follow_redirects=False,timeout=55) as client:
+            async with ollama_client(timeout=55) as client:
                 response=await client.request('GET' if body is None else 'POST','http://127.0.0.1:11434/api/'+path,json=body)
                 if response.status_code!=200:raise GenerationUnavailable('Local Ollama rejected the generation request; check model/runtime compatibility')
                 return response.json()

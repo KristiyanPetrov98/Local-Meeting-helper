@@ -1,4 +1,5 @@
 """Guided setup, explicit installations and evidence-backed device profiles."""
+from .ollama_http import ollama_client
 import asyncio
 import hashlib
 import importlib.metadata
@@ -74,7 +75,7 @@ class Onboarding:
             except importlib.metadata.PackageNotFoundError:packages[name]=None
         result['packages']=packages
         try:
-            async with httpx.AsyncClient(trust_env=False,follow_redirects=False,timeout=3) as client:
+            async with ollama_client(timeout=3) as client:
                 response=await client.get('http://127.0.0.1:11434/api/tags');response.raise_for_status()
                 result['ollama']={'reachable':True,'models':[{'name':m.get('name'),'digest':m.get('digest')} for m in response.json().get('models',[])[:50]]}
         except Exception:result['ollama']={'reachable':False,'models':[]}
@@ -149,7 +150,7 @@ class Onboarding:
                 try:existing=await (self.assistance.generator.identity() if model_id=='generation' else self.documents.embedder.identity(refresh=True))
                 except Exception:existing=None
                 if existing:return dict(model_id=model_id,digest=existing,files_installed=True,already_present=True,inference_verified=False,license_acknowledged=True,detail='Exact model already installed; no pull was needed. Run offline inference checks next.')
-            async with httpx.AsyncClient(trust_env=False,follow_redirects=False,timeout=httpx.Timeout(120,read=120)) as client:
+            async with ollama_client(timeout=httpx.Timeout(120,read=120)) as client:
                 async with client.stream('POST','http://127.0.0.1:11434/api/pull',json={'model':model['name'],'stream':True}) as response:
                     response.raise_for_status();success=False
                     async for line in response.aiter_lines():
