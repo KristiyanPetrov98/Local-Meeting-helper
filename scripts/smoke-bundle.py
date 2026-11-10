@@ -41,9 +41,10 @@ def main():
                 time.sleep(.2)
             assert row['status']=='completed',row
             checks={c['id']:c for c in row['report']['checks']}
-            for name in ['storage','local_rag','question_guard','parser_worker','import_faster_whisper','import_ctranslate2','import_onnxruntime']:
-                assert checks[name]['status']=='passed',(name,checks[name])
-            if args.require_diarization:assert checks['import_pyannote.audio']['status']=='passed'
+            required=['storage','local_rag','question_guard','parser_worker','import_faster_whisper','import_ctranslate2','import_onnxruntime']
+            if args.require_diarization:required.append('import_pyannote.audio')
+            failures=[checks[name] for name in required if checks[name]['status']!='passed']
+            assert not failures,failures
             assert checks['asr_runtime']['status']=='blocked' and row['report']['all_passed'] is False
             args.output.parent.mkdir(parents=True,exist_ok=True)
             args.output.write_text(json.dumps(dict(bundled_backend_started=True,checkout_independent=True,actual_bundled_parser_worker=True,document_ingestion_and_citations=True,offline_core_checks='passed',missing_assets='correctly blocked',real_models='unrun',platform=os.name),indent=2)+'\n')

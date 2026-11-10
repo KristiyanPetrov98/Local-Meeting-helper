@@ -40,7 +40,8 @@ def core_checks(data_dir):
     except OSError:rows.append(check('storage','Local data directory','failed','The configured data directory is not writable.'))
     store=None
     try:
-        store=Store(':memory:');a=store.create('Offline Alpha')['projects'][0]['id'];b=store.create('Offline Beta')['projects'][-1]['id']
+        store=Store(':memory:');a=store.create('Offline Alpha')['projects'][0]['id']
+        b=next(p['id'] for p in store.create('Offline Beta')['projects'] if p['name']=='Offline Beta')
         raw=b'The offline release is Friday.';doc=store.upload_document(a,'offline.txt',raw)
         store.commit_parsed(a,doc['document_id'],doc['revision_id'],parse_document('offline.txt',raw))
         hits=store.lexical_candidates(a,'release');citation=store.citation(a,hits[0]['id'])

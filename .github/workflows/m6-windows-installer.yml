@@ -48,6 +48,13 @@ jobs:
             throw
           }
         shell: pwsh
+      - name: Start packaged desktop and exercise bundled workflows
+        shell: pwsh
+        env:
+          PM_PACKAGED_APP: ${{ github.workspace }}\release\win-unpacked\PM Copilot.exe
+        run: |
+          & npx playwright test tests/e2e/m6-package.spec.ts *>&1 | Tee-Object -FilePath build/windows-build.log -Append
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - uses: actions/upload-artifact@v4
         with:
           name: pm-copilot-windows-installer-candidate

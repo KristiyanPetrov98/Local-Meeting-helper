@@ -17,6 +17,16 @@ from test_app import project
 from test_assistance import FixtureGeneration,payload
 
 
+def test_offline_rag_check_handles_equal_project_timestamps(tmp_path,monkeypatch):
+    from pm_copilot import store
+    from pm_copilot.setup_checks import core_checks
+    monkeypatch.setattr(store,'now',lambda:'2026-11-10T00:00:00+00:00')
+    ids=iter(['z-alpha','a-beta'])
+    monkeypatch.setattr(store,'uuid4',lambda:next(ids))
+    result=next(row for row in core_checks(tmp_path) if row['id']=='local_rag')
+    assert result['status']=='passed',result
+
+
 def finished(c,rid):
     for _ in range(600):
         row=next(r for r in c.get('/api/setup').json()['runs'] if r['id']==rid)
