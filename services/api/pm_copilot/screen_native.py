@@ -5,6 +5,7 @@ import os
 import sys
 from pathlib import Path
 from .store import DomainError
+from .runtime import hidden_flags
 ROOT=Path(__file__).resolve().parents[3]
 
 class NativeScreen:
@@ -20,7 +21,7 @@ class NativeScreen:
 
     async def windows(self):
         if not self.diagnostics()['available']:return []
-        process=await asyncio.create_subprocess_exec(str(self.helper),'--list',stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL)
+        process=await asyncio.create_subprocess_exec(str(self.helper),'--list',stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,creationflags=hidden_flags())
         try:
             out,_=await asyncio.wait_for(process.communicate(json.dumps(self.config()).encode()+b'\n'),5)
             if process.returncode:raise ValueError()
@@ -31,7 +32,7 @@ class NativeScreen:
 
     async def frames(self,source_id):
         if not self.diagnostics()['available']:raise DomainError(self.diagnostics()['reason'],503)
-        self.process=await asyncio.create_subprocess_exec(str(self.helper),stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,limit=6*1024*1024,creationflags=0x00004000 if sys.platform=='win32' else 0)
+        self.process=await asyncio.create_subprocess_exec(str(self.helper),stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,limit=6*1024*1024,creationflags=hidden_flags(background=True))
         process=self.process
         try:
             process.stdin.write((json.dumps(self.config(source_id))+'\n').encode());await process.stdin.drain()

@@ -21,19 +21,25 @@ extraResources:
   - from: build/notices
     to: notices
 win:
+  extraResources:
+    - from: build/runtime/ollama
+      to: runtime/ollama
+    - from: build/runtime/vcredist
+      to: runtime/vcredist
   target:
     - target: nsis
       arch: [x64]
   signAndEditExecutable: false
   requestedExecutionLevel: asInvoker
 nsis:
+  include: packaging/installer.nsh
   oneClick: false
   perMachine: false
   allowElevation: false
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: always
   createStartMenuShortcut: true
-  runAfterFinish: false
+  runAfterFinish: true
   deleteAppDataOnUninstall: false
   uninstallDisplayName: PM Copilot
 publish: null

@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-10",
+  "version": "0.2.0",
+  "source_digest": "fec65fad6fa72759c0ed8cec4eb7e3d30246dc70578529d603c46d94b46a6856",
+  "status": "portable_checks_passed",
+  "tests_passed": {
+    "api": 272,
+    "vitest": 14,
+    "electron_source": 13,
+    "m0_unittest": 5
+  },
+  "independent_tests_passed": 304,
+  "failed_final_automated_tests": 0,
+  "skipped_in_executed_suites": 0,
+  "typecheck": "passed",
+  "production_build": "passed",
+  "contracts": "regenerated",
+  "python_compile": "passed",
+  "pip_check": "passed",
+  "measured_collection_test": {
+    "input": "synthetic PCM: 1.2 seconds voice and 0.6 seconds quiet",
+    "old_batch_seconds": 4,
+    "submitted_at_seconds": 1.8,
+    "scope": "Collection boundary only, not ASR/LLM inference or accuracy"
+  },
+  "actual_supervisor_test": "Actual fixture child starts once, answers loopback version, stops; external server is preserved.",
+  "actual_gui_export_test": "Real Electron native Save dialog target receives sanitized performance JSON with desktop version.",
+  "windows_vendor_staging": "Not executed on this Linux host; release API unavailable through network proxy",
+  "windows_engine_smoke": "Implemented as required pre-packaging gate; not run here",
+  "windows_installer_build": "Automatically triggered by relevant main pushes; status not yet verified",
+  "clean_machine_install": "unrun",
+  "actual_windows_console_visibility": "unrun; creation-flag policy tested",
+  "actual_whisper_latency_ms": null,
+  "actual_8b_latency_ms": null,
+  "gpu_memory_measurements": null,
+  "latency_goal": "10-15 second laptop delay is not yet proved resolved; use new in-app timing report for target evidence.",
+  "release_ready": false
+}

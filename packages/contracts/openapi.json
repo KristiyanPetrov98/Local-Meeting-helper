@@ -1155,6 +1155,49 @@
         ]
       }
     },
+    "/api/setup/prepare": {
+      "post": {
+        "summary": "Prepare",
+        "operationId": "prepare_api_setup_prepare_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Prepare"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetupRun"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "LocalBearer": []
+          }
+        ]
+      }
+    },
     "/api/setup": {
       "get": {
         "summary": "Status",
@@ -3272,6 +3315,25 @@
           "target"
         ],
         "title": "MergeSpeaker"
+      },
+      "Prepare": {
+        "properties": {
+          "license_acknowledged": {
+            "type": "boolean",
+            "title": "License Acknowledged"
+          },
+          "network_acknowledged": {
+            "type": "boolean",
+            "title": "Network Acknowledged"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "license_acknowledged",
+          "network_acknowledged"
+        ],
+        "title": "Prepare"
       },
       "Project": {
         "properties": {

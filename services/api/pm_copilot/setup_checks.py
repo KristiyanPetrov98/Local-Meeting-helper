@@ -10,7 +10,7 @@ import shutil
 import sqlite3
 import sys
 from pathlib import Path
-from .runtime import command,cwd
+from .runtime import command,cwd,hidden_flags
 
 
 def hardware(data_dir):
@@ -57,7 +57,7 @@ def core_checks(data_dir):
 
 
 async def worker_check(owner,worker,config,timeout=120):
-    process=await asyncio.create_subprocess_exec(*command(worker),cwd=cwd(),stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,limit=1024*1024)
+    process=await asyncio.create_subprocess_exec(*command(worker),cwd=cwd(),stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,limit=1024*1024,creationflags=hidden_flags())
     owner.process=process
     try:
         output,_=await asyncio.wait_for(process.communicate(json.dumps(config).encode()+b'\n'),timeout)
@@ -69,7 +69,7 @@ async def worker_check(owner,worker,config,timeout=120):
 
 
 async def asr_silence(owner,meeting):
-    process=await asyncio.create_subprocess_exec(*command('media'),cwd=cwd(),stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,limit=1024*1024)
+    process=await asyncio.create_subprocess_exec(*command('media'),cwd=cwd(),stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,limit=1024*1024,creationflags=hidden_flags())
     owner.process=process
     try:
         cfg=dict(mode='asr',model_path=str(meeting.model),device='cpu',language='en',cpu_threads=4)
@@ -85,7 +85,7 @@ async def asr_silence(owner,meeting):
 
 
 async def diarization_load(owner,meeting):
-    process=await asyncio.create_subprocess_exec(*command('media'),cwd=cwd(),stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,limit=1024*1024)
+    process=await asyncio.create_subprocess_exec(*command('media'),cwd=cwd(),stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,limit=1024*1024,creationflags=hidden_flags())
     owner.process=process
     try:
         process.stdin.write(json.dumps(dict(mode='diarization',model_path=str(meeting.diar_model),device='cpu')).encode()+b'\n');await process.stdin.drain()

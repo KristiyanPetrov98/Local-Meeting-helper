@@ -37,6 +37,10 @@ class SetupImport(Strict):
 
 class SetupVerify(Strict):model_id:SnapshotId
 
+class Prepare(Strict):
+    license_acknowledged:bool
+    network_acknowledged:bool
+
 class SetupApplyProfile(Strict):
     run_id:str=Field(max_length=100)
     accuracy_review_acknowledged:bool
@@ -63,6 +67,11 @@ class SetupStatus(SetupSummary):
 
 
 def register_setup_routes(app,setup,lifecycle_lock):
+    @app.post('/api/setup/prepare',response_model=SetupRun,status_code=202)
+    async def prepare(body:Prepare):
+        if not body.license_acknowledged or not body.network_acknowledged:raise DomainError('Review the model licenses and allow the one-time downloads first',422)
+        async with lifecycle_lock:return await setup.start('prepare')
+
     @app.get('/api/setup',response_model=SetupStatus)
     async def status():return setup.status()
 

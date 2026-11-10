@@ -39,6 +39,17 @@ def main():
         js_packages.append(dict(name=name,version=info['version'],license=info.get('license'),texts=texts))
     manifest['javascript_packages']=js_packages
     manifest['source_digest']=source_identity()
+    engine=Path('build/runtime/ollama/installation.json')
+    if engine.is_file():manifest['bundled_ollama']=json.loads(engine.read_text())
+    vcredist=Path('build/runtime/vcredist/installation.json')
+    if vcredist.is_file():manifest['bundled_vcredist']=json.loads(vcredist.read_text())
+    ffmpeg=Path('build/runtime/ffmpeg')
+    if (ffmpeg/'installation.json').is_file():
+        manifest['bundled_ffmpeg']=json.loads((ffmpeg/'installation.json').read_text())
+        # Preserve build metadata, documentation and license texts alongside DLLs.
+        for source in ffmpeg.rglob('*'):
+            if source.is_file() and 'bin' not in source.relative_to(ffmpeg).parts and 'lib' not in source.relative_to(ffmpeg).parts:
+                target=args.output/'ffmpeg'/source.relative_to(ffmpeg);target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,target)
     (args.output/'runtime-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     for source in Path('packaging/licenses').glob('*'):shutil.copyfile(source,args.output/source.name)
     (args.output/'README.txt').write_text('Build-time third-party inventory and license texts. Meeting model weights are installed separately with user acknowledgement. This inventory does not substitute for M7 license/security/release review.\n')

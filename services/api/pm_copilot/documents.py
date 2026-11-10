@@ -7,7 +7,7 @@ from pathlib import Path
 from .document_parser import MAX_UPLOAD, validate_name
 from .embeddings import OllamaEmbeddings, EmbeddingUnavailable, cosine_candidates
 from .store import DomainError
-from .runtime import command, cwd
+from .runtime import command, cwd, hidden_flags
 
 QUERY_EMBEDDING_SECONDS = 10
 
@@ -61,7 +61,7 @@ class Documents:
     async def _parse(self, job):
         self.process=await asyncio.create_subprocess_exec(*command('document'),cwd=cwd(),
             stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,
-            creationflags=0x00004000 if sys.platform=='win32' else 0)
+            creationflags=hidden_flags(background=True))
         message={'name':job['name'],'content':base64.b64encode(job['original']).decode()}
         try:
             async def write():

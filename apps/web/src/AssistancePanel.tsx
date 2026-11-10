@@ -21,7 +21,12 @@ export function AssistancePanel({client,state,connected,compact=false,nativeErro
  const selected=compact?items[0]?.id:picked||items[0]?.id;
  const detail=saved?.scope===scope&&saved.value.id===selected?saved.value:null;
  const live=!!session&&['active','paused'].includes(session.state)&&session.id===state.session?.id;
- useEffect(()=>{let alive=true;void client.request<Diagnostics>('assistance/status').then(v=>{if(alive)setModel(v);}).catch(()=>{});return()=>{alive=false;};},[client]);
+ useEffect(()=>{
+  let alive=true;
+  const refresh=()=>void client.request<Diagnostics>('assistance/status').then(v=>{if(alive)setModel(v);}).catch(()=>{});
+  refresh();const timer=setInterval(refresh,15000);
+  return()=>{alive=false;clearInterval(timer);};
+ },[client,state.setup.busy]);
  useEffect(()=>{setPicked('');setError('');},[scope]);
  useEffect(()=>{setPicked('');},[items[0]?.id]);
  useEffect(()=>{let alive=true;if(base)void client.request<Summary[]>(base).then(items=>{if(alive)setHistory({scope,items});}).catch(e=>{if(alive)setError(e.message);});return()=>{alive=false;};},[client,base,scope,state.revision]);

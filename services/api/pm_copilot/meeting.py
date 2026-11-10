@@ -11,7 +11,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 from .audio import Chunks, SpeakerStitcher, packet, RATE
 from .store import DomainError
-from .runtime import command, cwd
+from .runtime import command, cwd, hidden_flags
 
 ROOT = Path(__file__).resolve().parents[3]
 
@@ -63,7 +63,7 @@ class Meeting:
     async def enumerate_devices(self):
         if sys.platform != 'win32' or not self.helper.is_file():
             return {'devices':[],'reason':self.diagnostics()['reason'],'process_loopback':False}
-        process = await asyncio.create_subprocess_exec(str(self.helper),'--list',stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL)
+        process = await asyncio.create_subprocess_exec(str(self.helper),'--list',stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,creationflags=hidden_flags())
         try:
             output,_ = await asyncio.wait_for(process.communicate(),10)
             if process.returncode: raise DomainError('Windows audio device enumeration failed',503)
@@ -91,7 +91,7 @@ class Meeting:
         self.counts = {'packets':0,'gaps':0,'dropped_chunks':0,'segments':0,'asr_errors':0,'reconnects':0,'diarization_errors':0}
         if previous_counts: self.counts.update(previous_counts)
         self.queue = asyncio.Queue(maxsize=8);self.diar_queue = asyncio.Queue(maxsize=1)
-        self.chunks = {s:Chunks(overlap_seconds=.5) for s in ('local','remote')}
+        self.chunks = {s:Chunks(overlap_seconds=.5,silence_seconds=.6) for s in ('local','remote')}
         self.diar_audio = bytearray();self.diar_start = None
         self.stitcher = previous_stitcher or SpeakerStitcher()
         self.last_word_end = {'local':0.,'remote':0.}
@@ -102,7 +102,7 @@ class Meeting:
     async def _spawn_worker(self, mode):
         process = await asyncio.create_subprocess_exec(*command('media'),cwd=cwd(),stdin=asyncio.subprocess.PIPE,
             stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,limit=1048576,
-            creationflags=0x00004000 if mode=='diarization' and sys.platform=='win32' else 0)
+            creationflags=hidden_flags(background=mode=='diarization'))
         self.processes.append(process)
         cfg = {'mode':mode,'model_path':str(self.model if mode=='asr' else self.diar_model),
                'device':getattr(self,'asr_device',self.options.device),'language':None if self.options.language=='auto' else self.options.language}
@@ -114,6 +114,7 @@ class Meeting:
     async def _initialize(self, epoch):
         try:
             asr = await self._spawn_worker('asr')
+            self.counts['asr_cuda_active']=int(self.asr_device=='cuda')
             self.tasks.append(asyncio.create_task(self._asr_loop(asr,epoch)))
             if self.options.diarization:
                 self.tasks.append(asyncio.create_task(self._diarize_loop(epoch)))
@@ -139,14 +140,14 @@ class Meeting:
             healthy_since = None
             try:
                 process = await asyncio.create_subprocess_exec(str(self.helper),stdin=asyncio.subprocess.PIPE,
-                    stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,limit=20000)
+                    stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,limit=20000,creationflags=hidden_flags())
                 self.processes.append(process)
                 self.capture_process = process
                 cfg = {'microphone':self.options.microphone,'loopback':self.options.loopback}
                 process.stdin.write((json.dumps(cfg)+'\n').encode());await process.stdin.drain()
                 offset = time.monotonic()-self.offset_origin
                 # A fresh helper has fresh source sequences. Clear discontinuous tails.
-                self.chunks = {s:Chunks(overlap_seconds=.5) for s in ('local','remote')}
+                self.chunks = {s:Chunks(overlap_seconds=.5,silence_seconds=.6) for s in ('local','remote')}
                 while epoch==self.epoch:
                     line = await process.stdout.readline()
                     if not line: raise RuntimeError('capture_ended')
@@ -159,9 +160,10 @@ class Meeting:
                         self.counts['packets']+=1
                         self.counts[source+'_packets']=self.counts.get(source+'_packets',0)+1
                         levels=array('f');levels.frombytes(pcm)
-                        if levels and sum(x*x for x in levels)/len(levels)>1e-7:
+                        audible=bool(levels) and sum(x*x for x in levels)/len(levels)>1e-7
+                        if audible:
                             self.counts[source+'_audible_packets']=self.counts.get(source+'_audible_packets',0)+1
-                        chunks,gap = self.chunks[source].push(sequence,start+offset,pcm)
+                        chunks,gap = self.chunks[source].push(sequence,start+offset,pcm,audible=audible)
                         if gap:
                             self.counts['gaps']+=1
                             self.error = 'Audio discontinuity observed; review the transcript for missing speech.'
@@ -211,8 +213,12 @@ class Meeting:
                 samples = array('f');samples.frombytes(pcm)
                 if samples and sum(x*x for x in samples)/len(samples)<1e-7: continue
                 t0 = time.monotonic()
+                duration=len(pcm)/4/RATE
+                self.counts['last_collection_ms']=round(duration*1000)
+                self.counts['last_queue_wait_ms']=round(max(0,t0-self.offset_origin-start-duration)*1000)
                 result = await self._request(process,pcm)
                 self.counts['last_asr_ms']=round((time.monotonic()-t0)*1000)
+                self.counts['last_asr_rtf_milli']=round(self.counts['last_asr_ms']/max(.001,duration))
                 self.counts['last_chunk_lag_ms']=round(max(0,time.monotonic()-self.offset_origin-start-len(pcm)/4/RATE)*1000)
                 if epoch != self.epoch: return
                 for i,segment in enumerate(result['segments']):
@@ -228,6 +234,7 @@ class Meeting:
                     if begin>=end or not text: continue
                     self.last_word_end[source] = end
                     await self.segment(self.session_id,source,begin,end,text,result['language'],f'{start:.5f}:{i}',self.options.echo_profile=='speakers')
+                    self.counts['last_speech_delay_ms']=round(max(0,time.monotonic()-self.offset_origin-end)*1000)
                     self.counts['segments']+=1
             except asyncio.CancelledError: raise
             except Exception:
@@ -243,6 +250,7 @@ class Meeting:
                     self.error='ASR recovery exhausted. Audio capture continues, but transcription requires Retry capture.'
                     await self.notify();return
                 self.asr_device='cpu';self.counts['asr_cpu_fallback']=1
+                self.counts['asr_cuda_active']=0
                 try: process=await self._spawn_worker('asr')
                 except asyncio.CancelledError: raise
                 except Exception:

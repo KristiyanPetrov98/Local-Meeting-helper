@@ -2,7 +2,7 @@
 
 A local-first meeting workspace for Windows 11 and the RTX 4080 Laptop GPU.
 
-Latest update: [2026-11-10 retrieval-stall fix and laptop retest instructions](docs/retrieval-stall-fix.md).
+Latest update: [0.2 installer automation and transcription latency work](docs/installer-and-latency.md). The [retrieval-stall fix](docs/retrieval-stall-fix.md) is included.
 **M1 through M7 implementation code is present; release qualification is blocked.** Portable integration, security, dependency and startup checks pass. The Windows installer build/install and real laptop acceptance remain pending; see the M7 report. M3 Windows/live-model acceptance is unverified; see the
 [M3 implementation and Windows test guide](docs/milestone-3.md).
 
@@ -35,8 +35,7 @@ requirements stay blocked; limited mode must be acknowledged explicitly.
 
 On a Windows x64 build host, run `scripts/package-windows.ps1` or dispatch the manual
 Windows installer workflow. The packaged app bundles its backend/runtime/helpers;
-end users do not need Python, Node or a .NET SDK. **No Windows Setup.exe is included in
-this cloud result.** See [M6 build status and clean-machine tests](docs/milestone-6.md).
+end users do not need Python, Node or a .NET SDK. **Windows installer candidates are built by GitHub Actions; a passing Windows build and laptop test are still required.** See [M6 build status and clean-machine tests](docs/milestone-6.md).
 
 ## Test M5 screen and resource integration
 

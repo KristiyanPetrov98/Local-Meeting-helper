@@ -2,6 +2,7 @@ import {describe,it,expect} from 'vitest';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import {createRequire} from 'node:module';
 import {backendLocation,SETUP_LINKS} from '../../apps/desktop/src/runtime';
 const require=createRequire(import.meta.url);
@@ -29,6 +30,23 @@ describe('bundled launch and installer gates',()=>{
    await fs.mkdir(path.join(root,'build/notices'),{recursive:true});
    await fs.writeFile(path.join(root,'build/notices/runtime-manifest.json'),JSON.stringify({platform:'linux',fullModelRuntime:false}));
    await expect(beforePack({electronPlatformName:'win32',packager:{projectDir:root}})).rejects.toThrow('real Windows backend');
+  }finally{await fs.rm(root,{recursive:true,force:true});}
+ });
+ it('rejects modified bundled engine and Microsoft runtime executables',async()=>{
+  const root=await fs.mkdtemp(path.join(os.tmpdir(),'copilot-runtime-integrity-'));
+  try{
+   for(const folder of ['notices','runtime/ollama','runtime/vcredist'])await fs.mkdir(path.join(root,'build',folder),{recursive:true});
+   await fs.writeFile(path.join(root,'build/notices/runtime-manifest.json'),JSON.stringify({platform:'win32',fullModelRuntime:true}));
+   const engine=path.join(root,'build/runtime/ollama');const binary=Buffer.from('explicit non-executable integrity fixture');
+   await fs.writeFile(path.join(engine,'ollama.exe'),binary);
+   const manifest={repository:'ollama/ollama',version:'v1.2.3',archive_sha256:'a'.repeat(64),executable_sha256:'wrong'};
+   await fs.writeFile(path.join(engine,'installation.json'),JSON.stringify(manifest));
+   const context={electronPlatformName:'win32',packager:{projectDir:root}};
+   await expect(beforePack(context)).rejects.toThrow('Verified official Ollama');
+   manifest.executable_sha256=crypto.createHash('sha256').update(binary).digest('hex');await fs.writeFile(path.join(engine,'installation.json'),JSON.stringify(manifest));
+   const vc=path.join(root,'build/runtime/vcredist');await fs.writeFile(path.join(vc,'vc_redist.x64.exe'),binary);
+   await fs.writeFile(path.join(vc,'installation.json'),JSON.stringify({publisher:'Microsoft Corporation',signature_status:'Valid',sha256:'wrong'}));
+   await expect(beforePack(context)).rejects.toThrow('Validated Microsoft C++');
   }finally{await fs.rm(root,{recursive:true,force:true});}
  });
 });

@@ -3,6 +3,7 @@ import {Button} from '../../../packages/ui/src/button';
 import type {Snapshot} from '../../../packages/contracts/src';
 import type {components} from '../../../packages/contracts/src/api.generated';
 import {Client} from './client';
+import {performanceReport} from '../../../packages/contracts/src/performance';
 type Options=components['schemas']['AudioOptions'];
 type Page=components['schemas']['TranscriptPage'];
 interface Devices {devices:{id:string;name:string;kind:string}[];reason?:string;process_loopback:boolean}
@@ -25,11 +26,18 @@ export function MeetingPanel({client,state,connected}:{client:Client;state:Snaps
  },[client,base,state.revision]);
  const run=async(fn:()=>Promise<unknown>)=>{setBusy(true);setError('');try{await fn();}catch(e){setError((e as Error).message);}finally{setBusy(false);}};
  const patch=<K extends keyof Options>(key:K,value:Options[K])=>setOptions(old=>old?{...old,[key]:value}:old);
+ const downloadPerformance=async()=>{
+  if(window.copilot){await window.copilot.command({type:'export-report',kind:'performance'});return;}
+  const report=performanceReport(state);
+  const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));const anchor=document.createElement('a');anchor.href=url;anchor.download='pm-copilot-performance.json';anchor.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ };
  return <section className="panel mt-6" aria-label="Audio and transcript"><div className="flex justify-between gap-4"><div><div className="eyebrow mb-2">LIVE MEETING PIPELINE</div><h2>Audio & transcript</h2></div><span className="tag">{state.meeting.state}</span></div>
  <p className="muted text-sm mt-3">{state.meeting.reason??'Local Whisper transcription · audio is held in RAM only.'}</p>
  <p className="muted text-xs mt-2">Meet uses the selected output’s WASAPI loopback. Other applications on that output are included. Match the output selected in Google Meet settings.</p>
  {state.meeting.error&&<p className="error" role="status">{state.meeting.error}</p>}
  <p className="muted text-xs mt-3">Packets {state.meeting.counts.packets??0} · Queue {state.meeting.queue_depth}/8 · Dropped chunks {state.meeting.counts.dropped_chunks??0} · Discontinuities {state.meeting.counts.gaps??0} · ASR errors {state.meeting.counts.asr_errors??0}</p>
+ {state.meeting.counts.last_speech_delay_ms!==undefined&&<p className={state.meeting.counts.last_speech_delay_ms>5000?'knowledge-warning mt-3':'muted text-xs mt-3'}>Last speech update: {(state.meeting.counts.last_speech_delay_ms/1000).toFixed(1)} seconds behind live audio.</p>}
+ <details className="mt-3"><summary>Transcription performance</summary><p className="muted text-xs mt-2">Latest audio batch: {state.meeting.counts.last_collection_ms??'—'} ms · queue wait: {state.meeting.counts.last_queue_wait_ms??'—'} ms · Whisper decoding: {state.meeting.counts.last_asr_ms??'—'} ms.</p><p className="muted text-xs mt-2">Short phrases are submitted after a quiet boundary. Sustained speech keeps its four-second context. Slow decoding still requires a measured hardware profile; shortening batches alone cannot make a slow model real-time.</p><Button variant="secondary" disabled={busy} onClick={()=>void run(downloadPerformance)}>Download performance report</Button></details>
  {options&&<><div className="audio-grid mt-5">{(['microphone','loopback'] as const).map(kind=><label key={kind}>{kind==='microphone'?'Microphone':'Meet playback output'}<select aria-label={kind==='microphone'?'Microphone':'Meet playback output'} disabled={locked||busy} value={options[kind]??''} onChange={e=>patch(kind,e.target.value||null)}><option value="">Disabled</option><option value="default">Windows default</option>{devices.devices.filter(d=>d.kind===kind).map(d=><option key={d.id} value={d.id}>{d.name}</option>)}</select></label>)}
  <label>Meeting language<select disabled={locked||busy} value={options.language??'auto'} onChange={e=>patch('language',e.target.value as Options['language'])}><option value="auto">Auto (English / Bulgarian)</option><option value="en">English</option><option value="bg">Bulgarian</option></select></label>
  <label>Whisper execution<select disabled={locked||busy} value={options.device??'cpu'} onChange={e=>patch('device',e.target.value as Options['device'])}><option value="cpu">CPU int8 · preserve 8B VRAM</option><option value="cuda">GPU int8_float16 · benchmark first</option></select></label>

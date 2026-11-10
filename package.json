@@ -1,6 +1,6 @@
 {
   "name": "pm-copilot",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Local laptop-first PM Copilot \u2014 M1 through M7",
   "main": "apps/desktop/dist/main.cjs",

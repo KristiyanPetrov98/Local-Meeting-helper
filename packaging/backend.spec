@@ -11,6 +11,12 @@ identity=root/'build/build-identity.json';identity.parent.mkdir(parents=True,exi
 identity.write_text(json.dumps({'source_digest':source_identity(root)})+'\n')
 windows=os.name=='nt'
 data=[(str(identity),'.')];binaries=[];hidden=['pm_copilot.document_worker','pm_copilot.media_worker','pm_copilot.asset_worker','pm_copilot.check_worker']
+if windows:
+ ffmpeg=root/'build/runtime/ffmpeg'
+ libraries=list((ffmpeg/'bin').glob('*.dll'))
+ if not libraries or not (ffmpeg/'installation.json').is_file():raise SystemExit('Stage the verified shared FFmpeg runtime before freezing Windows.')
+ binaries.extend((str(p),'ffmpeg') for p in libraries)
+ data.append((str(ffmpeg/'installation.json'),'ffmpeg'))
 packages=['fastapi','uvicorn','websockets','pydantic','pypdf','docx','pptx','openpyxl','yaml','defusedxml','numpy','PIL','langdetect','faster_whisper','ctranslate2','onnxruntime','tokenizers','huggingface_hub']
 if windows:packages+=['torch','torchaudio','torchcodec','pyannote.audio']
 for package in packages:

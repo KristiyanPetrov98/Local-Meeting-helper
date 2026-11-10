@@ -128,6 +128,8 @@ class Onboarding:
                 async with asyncio.timeout(300):report=await self.self_tests()
             elif kind=='benchmark':
                 async with asyncio.timeout(300):report=await self.benchmark()
+            elif kind=='prepare':
+                async with asyncio.timeout(3600):report=await self.prepare(temporary)
             else:
                 async with asyncio.timeout(3600):report=await self.install(kind,params,temporary)
             await self._finish(rid,'completed',report)
@@ -142,6 +144,28 @@ class Onboarding:
             if self.active==rid:
                 self.active=None;self.phase='idle';self.documents.manual_active=False
                 await self.change(self.store.bump)
+
+    async def prepare(self,temporary):
+        assets=[]
+        selected=['generation','embedding','whisper-'+self.preferences()['asr_size']]
+        for index,model_id in enumerate(selected,1):
+            self.phase=f'Preparing local models {index}/3: {CATALOG[model_id]["label"]}'
+            await self.change(self.store.bump)
+            if CATALOG[model_id]['kind']=='snapshot' and (self.models/model_id).is_dir():
+                result=await self.install('verify',dict(model_id=model_id),temporary/model_id)
+                result['already_present']=True
+            else:result=await self.install('download',dict(model_id=model_id),temporary/model_id)
+            assets.append(result)
+            def progress():self.store.db.execute('UPDATE setup_runs SET report=? WHERE id=?',(json.dumps(dict(assets=assets,detail=self.phase)),self.active))
+            await self.change(progress)
+        self.phase='Checking the installed local models'
+        await self.change(self.store.bump)
+        checks=await self.self_tests()
+        required={'storage','local_rag','parser_worker','generation','embedding','asr_runtime','audio_enumeration','window_enumeration'}
+        passed={row['id'] for row in checks['checks'] if row['status']=='passed'}
+        return dict(assets=assets,**checks,required_runtime_ready=required<=passed,
+                    detail='Model preparation finished. Review runtime results; live audio accuracy and sustained GPU qualification remain separate.',
+                    optional_diarization='Community-1 remains available in Models and requires its upstream access acknowledgement.',release_qualified=False)
 
     async def install(self,kind,params,temporary):
         model_id=params['model_id'];model=CATALOG[model_id]

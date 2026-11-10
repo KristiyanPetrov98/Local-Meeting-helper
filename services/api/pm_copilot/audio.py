@@ -27,7 +27,7 @@ def packet(message):
 
 
 class Chunks:
-    def __init__(self, seconds=4, overlap_seconds=0):
+    def __init__(self, seconds=4, overlap_seconds=0, silence_seconds=None, min_seconds=1):
         if not 0 <= overlap_seconds < seconds: raise ValueError("invalid_chunk_overlap")
         self.overlap = int(overlap_seconds*RATE)*4
         self.target = int(seconds*RATE)*4
@@ -35,25 +35,38 @@ class Chunks:
         self.start = 0.
         self.expected = None
         self.sequence = None
+        if silence_seconds is not None and not 0<min_seconds<=seconds:raise ValueError('invalid_endpoint_minimum')
+        if silence_seconds is not None and silence_seconds<=0:raise ValueError('invalid_endpoint_silence')
+        self.silence_target=int(silence_seconds*RATE)*4 if silence_seconds is not None else None
+        self.minimum=int(min_seconds*RATE)*4;self.quiet=0;self.voiced=False
 
-    def push(self, sequence, start, pcm):
+    def push(self, sequence, start, pcm, *, audible=None):
         gap = (self.sequence is not None and sequence != self.sequence+1) or (self.expected is not None and abs(start-self.expected)>.35)
-        if gap: self.pending.clear()
+        if gap:self.pending.clear();self.quiet=0;self.voiced=False
         if not self.pending: self.start = start
         self.expected = start+len(pcm)/4/RATE
         self.sequence = sequence
         self.pending.extend(pcm)
+        if self.silence_target is not None:
+            if audible is None:
+                samples=array('f');samples.frombytes(pcm)
+                audible=bool(samples) and sum(x*x for x in samples)/len(samples)>=1e-7
+            if audible:self.voiced=True;self.quiet=0
+            else:self.quiet+=len(pcm)
         result = []
         while len(self.pending)>=self.target:
             result.append((self.start,bytes(self.pending[:self.target])))
             del self.pending[:self.target-self.overlap]
             self.start += (self.target-self.overlap)/4/RATE
+        if self.silence_target is not None and self.voiced and self.quiet>=self.silence_target and len(self.pending)>=self.minimum:
+            result.append(self.flush())
         return result, bool(gap)
 
     def flush(self):
         if not self.pending: return None
         result = self.start, bytes(self.pending)
         self.pending.clear()
+        self.voiced=False;self.quiet=0
         return result
 
 

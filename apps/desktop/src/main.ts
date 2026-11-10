@@ -8,12 +8,15 @@ import type {NativeCommand,NativeStatus,Snapshot} from '../../../packages/contra
 import {Shortcuts} from './shortcut';
 import {fit} from './bounds';
 import {backendLocation,SETUP_LINKS} from './runtime';
+import {LocalEngine} from './ollama';
+import {performanceReport} from '../../../packages/contracts/src/performance';
 
 const root=path.resolve(__dirname,'../../..');
 if(process.env.PM_COPILOT_DATA_DIR)app.setPath('userData',path.resolve(process.env.PM_COPILOT_DATA_DIR));
 const token=randomBytes(32).toString('hex'),desktopCapability=randomBytes(32).toString('hex');
 let origin='',backend:ChildProcessWithoutNullStreams, dashboard:BrowserWindow,mini:BrowserWindow,tray:Tray;
 let quitting=false, closing=false, expanded=true;
+let engine:LocalEngine|undefined;
 let status:NativeStatus={shortcut:'Control+Shift+Space',registered:false,error:null,lastTriggered:null,assistanceError:null,miniExpanded:true};
 const shortcuts=new Shortcuts(globalShortcut,()=>{status.lastTriggered=Date.now();void showMini();broadcast();void triggerAssistance();});
 const broadcast=()=>{for(const w of [dashboard,mini])if(w&&!w.isDestroyed())w.webContents.send('copilot:status',status);};
@@ -50,8 +53,8 @@ async function triggerAssistance(){
   }catch(error){status.assistanceError=(error as Error).message;broadcast();}
   finally{triggeringAssistance=false;}
 }
-async function api<T=Snapshot>(route:string,method='GET',body?:unknown):Promise<T>{
-  const response=await fetch(origin+'/api/'+route,{method,headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body),signal:AbortSignal.timeout(45000)});
+async function api<T=Snapshot>(route:string,method='GET',body?:unknown,timeout=45000):Promise<T>{
+  const response=await fetch(origin+'/api/'+route,{method,headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body),signal:AbortSignal.timeout(timeout)});
   if(!response.ok){const detail=await response.json().catch(()=>({detail:'Local service rejected the request'}));throw new Error(typeof detail.detail==='string'?detail.detail:'Local service rejected the request');}
   return response.json();
 }
@@ -112,6 +115,10 @@ else{
  app.on('second-instance',()=>{if(dashboard){dashboard.show();dashboard.focus();}});
  app.whenReady().then(async()=>{
   try{
+    if(process.platform==='win32'){
+      engine=new LocalEngine({command:app.isPackaged?path.join(process.resourcesPath,'runtime','ollama','ollama.exe'):'ollama.exe',changed:value=>{status={...status,engine:value};broadcast();}});
+      void engine.ensureStarted().catch(()=>{/* Show readiness/error in the dashboard; core workspace still starts. */});
+    }
     origin=await startBackend();
     const state=await api('state');
     try{shortcuts.set(state.shortcut);status={...status,shortcut:state.shortcut,registered:true};}
@@ -129,6 +136,14 @@ else{
           else if(command.action==='collapse'||command.action==='expand'){expanded=command.action==='expand';status.miniExpanded=expanded;mini.setSize(360,expanded?560:112);broadcast();mini.setBounds(fit(mini.getBounds(),screen.getAllDisplays().map(d=>d.workArea)));}
           else throw new Error('Invalid window action');break;
         case 'dashboard':dashboard.show();dashboard.focus();break;
+        case 'engine-start':if(engine)await engine.ensureStarted();break;
+        case 'export-report':{
+          if(!['performance','qualification'].includes(command.kind))throw new Error('Unsupported report');
+          const report=command.kind==='performance'?performanceReport(await api('state')):await api<Record<string,unknown>>('qualification/report');
+          const selected=await dialog.showSaveDialog(dashboard,{title:'Save local metrics report',defaultPath:path.join(app.getPath('documents'),`pm-copilot-${command.kind}.json`),filters:[{name:'JSON metrics',extensions:['json']}]});
+          if(!selected.canceled&&selected.filePath)await fs.promises.writeFile(selected.filePath,JSON.stringify({...report,desktop_version:app.getVersion()},null,2)+'\n','utf8');
+          break;
+        }
         case 'browser':await shell.openExternal(origin+'/#token='+token);break;
         case 'setup-link':
           if(!Object.prototype.hasOwnProperty.call(SETUP_LINKS,command.topic))throw new Error('Unsupported setup link');
@@ -157,16 +172,17 @@ else{
     tray.setContextMenu(Menu.buildFromTemplate([{label:'Open dashboard',click:()=>dashboard.show()},{label:'Show companion',click:showMini},{label:'Stop session',click:()=>void api('state').then(s=>s.session&&['active','paused'].includes(s.session.state)?api(`sessions/${s.session.id}/stop`,'POST'):null).catch(()=>dialog.showErrorBox('PM Copilot','Unable to stop session; open the dashboard.'))},{type:'separator'},{label:'Quit',click:()=>app.quit()}]));
     tray.on('click',()=>dashboard.show());
     backend.on('exit',()=>{if(!quitting&&!closing){dialog.showErrorBox('PM Copilot','The local service stopped. Restart PM Copilot to recover.');app.quit();}});
-  }catch(e){dialog.showErrorBox('PM Copilot startup failed',(e as Error).message);backend?.kill();quitting=true;app.quit();}
+  }catch(e){dialog.showErrorBox('PM Copilot startup failed',(e as Error).message);backend?.kill();await engine?.stop();quitting=true;app.quit();}
  });
  app.on('before-quit',event=>{
   if(quitting)return;
   event.preventDefault();if(closing)return;closing=true;
   void (async()=>{
-    try{const s=await api('state');if(s.session&&['active','paused'].includes(s.session.state))await api(`sessions/${s.session.id}/stop`,'POST');}catch{/* Recovery marks live sessions interrupted on next launch. */}
+    try{const s=await api('state','GET',undefined,1500);if(s.session&&['active','paused'].includes(s.session.state))await api(`sessions/${s.session.id}/stop`,'POST',undefined,35000);}catch{/* Recovery marks live sessions interrupted on next launch. */}
     if(safetyTimer)clearInterval(safetyTimer);
     quitting=true;shortcuts.clear();globalShortcut.unregisterAll();tray?.destroy();
     if(backend?.exitCode===null){backend.kill();setTimeout(()=>{if(backend.exitCode===null)backend.kill('SIGKILL');},1500).unref();}
+    await engine?.stop();
     app.quit();
   })();
  });

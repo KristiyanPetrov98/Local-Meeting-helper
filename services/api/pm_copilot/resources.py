@@ -1,5 +1,6 @@
 """Local resource admission. Never stops capture or acquires an ASR worker lock."""
 from .ollama_http import ollama_client
+from .runtime import hidden_flags
 import asyncio
 import csv
 import io
@@ -28,7 +29,7 @@ class LocalProbe:
         gpus=[];reason=None;resident=[]
         executable=shutil.which('nvidia-smi')
         if executable:
-            process=await asyncio.create_subprocess_exec(executable,'--query-gpu=uuid,name,memory.total,memory.free','--format=csv,noheader,nounits',stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL)
+            process=await asyncio.create_subprocess_exec(executable,'--query-gpu=uuid,name,memory.total,memory.free','--format=csv,noheader,nounits',stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.DEVNULL,creationflags=hidden_flags())
             try:
                 output,_=await asyncio.wait_for(process.communicate(),2)
                 if process.returncode:raise ValueError()
