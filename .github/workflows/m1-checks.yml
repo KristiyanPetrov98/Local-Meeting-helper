@@ -1,0 +1,44 @@
+name: Application checks (M1 through M6)
+on: [push, pull_request]
+jobs:
+  portable:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --require-hashes -r services/api/requirements-dev.lock -r services/api/requirements-assistance.lock
+      - run: npm ci --ignore-scripts
+      - run: python -m unittest discover -s tests -v
+      - run: python -m pytest tests/api -q
+      - run: npm run contracts
+      - run: git diff --exit-code -- packages/contracts
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+  desktop-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m venv .venv
+      - run: .venv/bin/python -m pip install --require-hashes -r services/api/requirements.lock -r services/api/requirements-assistance.lock
+      - run: npm ci --ignore-scripts
+      - run: node node_modules/electron/install.js
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: xvfb-run --auto-servernum npm run test:e2e
+# Windows native behavior is not qualified by the portable Windows job.

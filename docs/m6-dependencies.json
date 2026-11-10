@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-09",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": "3.12.14",
+  "build_dependencies": {
+    "PyInstaller": "6.22.3",
+    "pyinstaller-hooks-contrib": "2026.9",
+    "electron_builder": "26.18.0"
+  },
+  "runtime_requirements": "Existing assistance + ASR + Windows diarization locks; no new inference libraries introduced",
+  "locks": "services/api/requirements-packaging.lock and package-lock.json",
+  "dotnet_sdk": "8.0.427",
+  "native_helpers": "win-x64 self-contained cross-publish passed",
+  "source_runtime_libraries": {
+    "fastapi": "0.141.1",
+    "httpx": "0.28.1",
+    "faster-whisper": "1.2.1",
+    "ctranslate2": "4.8.5",
+    "onnxruntime": "1.31.1",
+    "numpy": "2.2.6"
+  },
+  "linux_bundled_diarization": "not included in the Linux smoke build; required by Windows build gate",
+  "actual_model_hosts": "Ollama registry and Hugging Face: configured proxy CONNECT 403 reproduced 2026-11-09",
+  "actual_model_downloads": "unrun; protocols tested with fixtures, approved local import actually executed",
+  "gpu_measurements": null,
+  "actual_asr_generation_quality": "unrun",
+  "windows_installer_attempt": "blocked by real-Windows-backend/full-runtime gate; no Windows Setup.exe produced",
+  "signing": "not configured; release signing remains pending"
+}

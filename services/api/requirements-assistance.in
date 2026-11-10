@@ -1,0 +1,2 @@
+-r requirements-documents.in
+langdetect==1.0.9

@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "timestamp_utc": "2026-11-09T13:44:08.999462+00:00",
+  "source_digest": "cc68fe7388646c48ec7d42d9fc38a759bf73d450ae1a168d32c5062c64f2aaa7",
+  "status": "passed",
+  "scope": "Dated published-advisory scans; not proof of vulnerability absence or Windows runtime compatibility",
+  "npm": {
+    "status": "passed",
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "report": "m7-npm-audit.json"
+  },
+  "python": {
+    "status": "passed",
+    "package_versions": 132,
+    "lookup_errors": 0,
+    "vulnerable_packages": 0,
+    "report": "m7-python-audit.json"
+  },
+  "nuget": {
+    "audio": {
+      "status": "passed",
+      "reported_vulnerable_packages": 0,
+      "source": "https://api.nuget.org/v3/index.json",
+      "report": "m7-nuget-audio-audit.json"
+    },
+    "screen": {
+      "status": "passed",
+      "reported_vulnerable_packages": 0,
+      "source": "https://api.nuget.org/v3/index.json",
+      "report": "m7-nuget-screen-audit.json"
+    },
+    "tests": {
+      "status": "passed",
+      "reported_vulnerable_packages": 0,
+      "source": "https://api.nuget.org/v3/index.json",
+      "report": "m7-nuget-tests-audit.json"
+    }
+  },
+  "native_sdk": "10.0.403",
+  "native_runtime": "10.0.14",
+  "native_support_until": "2028-11-14",
+  "windows_model_runtime": "Resolved Windows x64/Python3.12 wheels; runtime imports/inference remain unrun on Windows",
+  "source_binding": "Dependency locks unchanged since the dated feed scans; source digest refreshed after test-fixture/source-order fixes."
+}

@@ -1,0 +1,6 @@
+# Optional CPU diarization environment. Install AFTER the ASR lock.
+# Resolve for Windows x64; the worker explicitly places all diarization on CPU.
+pyannote.audio==4.0.7
+torch==2.15.0
+torchaudio==2.11.1
+torchcodec==0.17.0

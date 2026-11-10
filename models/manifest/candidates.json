@@ -1,0 +1,30 @@
+{
+  "status": "unverified_candidates",
+  "reserve_mib": 2048,
+  "ollama_num_parallel": 1,
+  "generation": {
+    "primary": "qwen3-vl:8b-instruct-q4_K_M",
+    "fallback": "qwen3-vl:4b-instruct-q4_K_M",
+    "contexts": [
+      4096,
+      6144,
+      8192
+    ],
+    "digests": null,
+    "digest_status": "record actual Ollama digest on target; tag availability unverified"
+  },
+  "asr": [
+    {
+      "model": "medium",
+      "device": "cuda",
+      "compute_type": "int8_float16"
+    },
+    {
+      "model": "medium",
+      "device": "cpu",
+      "compute_type": "int8"
+    }
+  ],
+  "embeddings": "qwen3-embedding:0.6b",
+  "diarization": "pyannote Community-1 on CPU; deferred outside feasibility run"
+}

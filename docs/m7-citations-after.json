@@ -1,0 +1,11 @@
+{
+  "scope": "CPU SQLite citation validation; synthetic 1.95M-character plain text, last ten chunks",
+  "iterations": 500,
+  "source_characters": 1950000,
+  "cold_ms": 39.110450001317076,
+  "warm_median_ms": 0.7122040005924646,
+  "warm_p95_ms": 2.0138460022280924,
+  "warm_max_ms": 11.770206001529004,
+  "warm_peak_allocated_bytes": 51546,
+  "gpu_or_model_test": false
+}

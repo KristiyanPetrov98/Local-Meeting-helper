@@ -1,0 +1,1170 @@
+{
+  "schema": 1,
+  "timestamp_utc": "2026-11-09T13:42:41.888059+00:00",
+  "source": "PyPI JSON version API, published advisories only; not a source-code security proof",
+  "status": "passed",
+  "package_versions": 132,
+  "errors": 0,
+  "vulnerable_packages": 0,
+  "packages": [
+    {
+      "name": "aiohappyeyeballs",
+      "version": "2.7.1",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "aiohttp",
+      "version": "3.14.5",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "aiosignal",
+      "version": "1.4.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "alembic",
+      "version": "1.20.1",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "altgraph",
+      "version": "0.17.5",
+      "locks": [
+        "services/api/requirements-packaging.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "annotated-doc",
+      "version": "0.0.5",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "annotated-types",
+      "version": "0.8.0",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "anyio",
+      "version": "4.16.0",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-diarization-windows.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "asteroid-filterbanks",
+      "version": "0.4.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "attrs",
+      "version": "26.1.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "av",
+      "version": "19.0.2",
+      "locks": [
+        "services/api/requirements-asr.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "certifi",
+      "version": "2026.10.23",
+      "locks": [
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-diarization-windows.lock",
+        "services/api/requirements-documents.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "click",
+      "version": "8.5.0",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-diarization-windows.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "cloudpickle",
+      "version": "3.1.2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "colorama",
+      "version": "0.4.6",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-diarization-windows.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "colorlog",
+      "version": "6.12.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "contourpy",
+      "version": "1.4.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "ctranslate2",
+      "version": "4.8.5",
+      "locks": [
+        "services/api/requirements-asr.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "cycler",
+      "version": "0.12.1",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "defusedxml",
+      "version": "0.7.1",
+      "locks": [
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-documents.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "einops",
+      "version": "0.8.2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "et-xmlfile",
+      "version": "2.0.0",
+      "locks": [
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-documents.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "fastapi",
+      "version": "0.141.1",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "faster-whisper",
+      "version": "1.2.1",
+      "locks": [
+        "services/api/requirements-asr.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "filelock",
+      "version": "4.2.9",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "flatbuffers",
+      "version": "25.12.19",
+      "locks": [
+        "services/api/requirements-asr.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "fonttools",
+      "version": "4.68.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "frozenlist",
+      "version": "1.8.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "fsspec",
+      "version": "2026.9.0",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "googleapis-common-protos",
+      "version": "1.76.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "grpcio",
+      "version": "1.85.1",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-diarization-windows.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "hf-xet",
+      "version": "1.8.0",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "httpcore",
+      "version": "1.0.9",
+      "locks": [
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-documents.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "httpcore2",
+      "version": "2.16.0",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1",
+      "locks": [
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-documents.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "httpx2",
+      "version": "2.16.0",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "httpx2-jsfetch",
+      "version": "1.0",
+      "locks": [
+        "services/api/requirements-asr.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "huggingface-hub",
+      "version": "2.4.0",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "idna",
+      "version": "3.20",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-diarization-windows.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.1",
+      "locks": [
+        "services/api/requirements-dev.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "jinja2",
+      "version": "3.1.6",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "joblib",
+      "version": "1.6.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "julius",
+      "version": "0.2.8",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "kiwisolver",
+      "version": "1.5.1",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "langdetect",
+      "version": "1.0.9",
+      "locks": [
+        "services/api/requirements-assistance.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "lightning",
+      "version": "2.6.6",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "lightning-utilities",
+      "version": "0.15.3",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "lxml",
+      "version": "6.1.3",
+      "locks": [
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-documents.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "macholib",
+      "version": "1.16.4",
+      "locks": [
+        "services/api/requirements-packaging.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "mako",
+      "version": "1.4.3",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "markdown-it-py",
+      "version": "4.2.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "markupsafe",
+      "version": "3.0.4",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "matplotlib",
+      "version": "3.11.2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "mdurl",
+      "version": "0.1.2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "mpmath",
+      "version": "1.3.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "multidict",
+      "version": "7.2.1",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "narwhals",
+      "version": "2.28.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "networkx",
+      "version": "3.7",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "numpy",
+      "version": "2.2.6",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-diarization-windows.lock",
+        "services/api/requirements-documents.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "onnxruntime",
+      "version": "1.31.1",
+      "locks": [
+        "services/api/requirements-asr.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "openpyxl",
+      "version": "3.1.5",
+      "locks": [
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-documents.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "opentelemetry-api",
+      "version": "1.45.2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "opentelemetry-exporter-http-transport",
+      "version": "0.66b2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "opentelemetry-exporter-otlp",
+      "version": "1.45.2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "opentelemetry-exporter-otlp-common",
+      "version": "0.66b2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "opentelemetry-exporter-otlp-proto-common",
+      "version": "1.45.2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "opentelemetry-exporter-otlp-proto-grpc",
+      "version": "1.45.2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "opentelemetry-exporter-otlp-proto-http",
+      "version": "1.45.2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "opentelemetry-proto",
+      "version": "1.45.2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "opentelemetry-sdk",
+      "version": "1.45.2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "opentelemetry-semantic-conventions",
+      "version": "0.66b2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "optuna",
+      "version": "5.0.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "packaging",
+      "version": "26.3",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-diarization-windows.lock",
+        "services/api/requirements-packaging.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pandas",
+      "version": "3.1.1",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pefile",
+      "version": "2024.8.26",
+      "locks": [
+        "services/api/requirements-packaging.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pillow",
+      "version": "13.0.0",
+      "locks": [
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-diarization-windows.lock",
+        "services/api/requirements-documents.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pluggy",
+      "version": "1.7.0",
+      "locks": [
+        "services/api/requirements-dev.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "primepy",
+      "version": "1.3",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "propcache",
+      "version": "0.5.4",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "protobuf",
+      "version": "7.36.2",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pyannote-audio",
+      "version": "4.0.7",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pyannote-core",
+      "version": "6.1.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pyannote-database",
+      "version": "6.2.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pyannote-metrics",
+      "version": "4.2.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pyannote-pipeline",
+      "version": "4.1.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pyannoteai-sdk",
+      "version": "0.4.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pydantic",
+      "version": "2.14.3",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pydantic-core",
+      "version": "2.50.4",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pygments",
+      "version": "2.21.0",
+      "locks": [
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pyinstaller",
+      "version": "6.22.3",
+      "locks": [
+        "services/api/requirements-packaging.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pyinstaller-hooks-contrib",
+      "version": "2026.9",
+      "locks": [
+        "services/api/requirements-packaging.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pyparsing",
+      "version": "3.3.3",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pypdf",
+      "version": "6.21.4",
+      "locks": [
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-documents.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pytest",
+      "version": "9.2.0",
+      "locks": [
+        "services/api/requirements-dev.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "python-dateutil",
+      "version": "4.0.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "python-docx",
+      "version": "1.2.0",
+      "locks": [
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-documents.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "python-pptx",
+      "version": "1.0.2",
+      "locks": [
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-documents.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pytorch-lightning",
+      "version": "2.6.6",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pytorch-metric-learning",
+      "version": "2.9.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pywin32-ctypes",
+      "version": "0.2.3",
+      "locks": [
+        "services/api/requirements-packaging.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "pyyaml",
+      "version": "6.0.3",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-diarization-windows.lock",
+        "services/api/requirements-documents.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "requests",
+      "version": "2.34.2",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "rich",
+      "version": "15.0.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "safetensors",
+      "version": "0.8.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "scikit-learn",
+      "version": "1.9.1",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "scipy",
+      "version": "1.18.1",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "setuptools",
+      "version": "84.2.1",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock",
+        "services/api/requirements-packaging.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "six",
+      "version": "1.17.0",
+      "locks": [
+        "services/api/requirements-assistance.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "sortedcontainers",
+      "version": "2.4.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "sqlalchemy",
+      "version": "2.1.8",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "starlette",
+      "version": "1.10.0",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "sympy",
+      "version": "1.14.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "threadpoolctl",
+      "version": "3.8.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "tokenizers",
+      "version": "0.23.3",
+      "locks": [
+        "services/api/requirements-asr.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "torch",
+      "version": "2.15.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "torch-audiomentations",
+      "version": "0.12.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "torch-pitch-shift",
+      "version": "1.2.5",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "torchaudio",
+      "version": "2.11.1",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "torchcodec",
+      "version": "0.17.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "torchmetrics",
+      "version": "1.9.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "tqdm",
+      "version": "4.70.1",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "truststore",
+      "version": "0.10.5",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "typing-extensions",
+      "version": "4.16.0",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-diarization-windows.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.5",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "tzdata",
+      "version": "2026.6",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "urllib3",
+      "version": "2.8.0",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.52.1",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "websockets",
+      "version": "15.0.1",
+      "locks": [
+        "services/api/requirements-asr.lock",
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-dev.lock",
+        "services/api/requirements-documents.lock",
+        "services/api/requirements.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "xlsxwriter",
+      "version": "3.3.1",
+      "locks": [
+        "services/api/requirements-assistance.lock",
+        "services/api/requirements-documents.lock"
+      ],
+      "vulnerabilities": []
+    },
+    {
+      "name": "yarl",
+      "version": "1.25.1",
+      "locks": [
+        "services/api/requirements-diarization-windows.lock"
+      ],
+      "vulnerabilities": []
+    }
+  ]
+}

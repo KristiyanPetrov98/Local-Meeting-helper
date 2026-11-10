@@ -1,0 +1,21 @@
+name: M3 audio checks and M5 Windows screen build
+on: [push, pull_request]
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+jobs:
+  native:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.403'
+      - run: dotnet restore tests/capture-dotnet --locked-mode
+      - run: dotnet test tests/capture-dotnet -c Release --no-restore
+      - run: dotnet publish services/capture-windows -c Release -r win-x64 --self-contained false
+      - run: dotnet restore services/screen-windows --locked-mode -r win-x64
+      - run: dotnet publish services/screen-windows -c Release -r win-x64 --self-contained false --no-restore
+# This builds/tests conversion code. CI has no consented Google Meet audio or laptop GPU.

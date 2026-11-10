@@ -1,0 +1,57 @@
+{
+  "name": "pm-copilot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local laptop-first PM Copilot \u2014 M1 through M7",
+  "main": "apps/desktop/dist/main.cjs",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "npm run build:web && npm run build:desktop",
+    "build:web": "vite build --config apps/web/vite.config.mts",
+    "build:desktop": "node scripts/build-desktop.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "start": "electron .",
+    "contracts": "python scripts/export-openapi.py && openapi-typescript packages/contracts/openapi.json -o packages/contracts/src/api.generated.ts",
+    "package:backend": "python -m PyInstaller --noconfirm --clean --distpath build/backend --workpath build/pyinstaller packaging/backend.spec",
+    "package:win": "electron-builder --win nsis --x64 --publish never",
+    "package:linux-smoke": "electron-builder --linux dir --publish never"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "1.5.0",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "lucide-react": "1.70.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "tailwind-merge": "3.7.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.0",
+    "@tailwindcss/vite": "4.3.4",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.2.1",
+    "electron": "45.2.3",
+    "electron-builder": "26.18.0",
+    "esbuild": "0.28.2",
+    "openapi-typescript": "7.13.0",
+    "tailwindcss": "4.3.4",
+    "typescript": "5.9.3",
+    "vite": "8.3.6",
+    "vitest": "5.1.0"
+  },
+  "author": "PM Copilot contributors",
+  "overrides": {
+    "app-builder-lib": {
+      "minimatch": "11.0.1"
+    },
+    "@electron/universal": {
+      "minimatch": "11.0.1"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-09",
+  "milestone": "M6 implementation and portable packaging validated; Windows installer acceptance blocked/pending",
+  "platform": "Linux x64, Xorg, real Electron and packaged Linux application",
+  "tests_passed": {
+    "api_complete_suite": 214,
+    "m6_api_cases": 32,
+    "electron_playwright": 12,
+    "packaged_app_case_in_electron": 1,
+    "vitest_shell_rendering_packaging": 10,
+    "m0_unittest": 5,
+    "native_dotnet": 3
+  },
+  "total_passed": 244,
+  "failed_final_automated_tests": 0,
+  "skipped_final_linux": 0,
+  "typecheck": "passed",
+  "production_build": "passed",
+  "contracts": "passed",
+  "python_compile": "passed",
+  "pip_check": "passed",
+  "self_contained_native_win_x64_helpers": "cross-publish passed; Windows execution unrun",
+  "frozen_backend_outside_checkout": "passed; real bundled parser and package imports",
+  "packaged_desktop_without_python_node_path": "passed on real Linux package",
+  "native_folder_picker_and_bundled_asset_worker": "passed with explicit non-working model fixture; inference remained unverified",
+  "windows_installer_build_attempt": {
+    "status": "blocked",
+    "message": "A real Windows backend build with all runtime libraries is required.",
+    "setup_exe_produced": false
+  },
+  "actual_clean_windows_install": "unrun",
+  "windows_ci_workflow": "prepared, not executed",
+  "actual_gpu_memory_mib": null,
+  "actual_model_latency_ms": null,
+  "actual_model_asr_audio_screen_quality": "unrun",
+  "real_downloads": "unrun: model hosts CONNECT 403; protocols and local import tested",
+  "m7": "not started",
+  "report": "docs/milestone-6.md",
+  "architecture": "docs/m6-architecture.md",
+  "dependencies": "docs/m6-dependencies.json",
+  "bundle_smoke": "docs/m6-bundle-smoke.json"
+}

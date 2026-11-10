@@ -1,0 +1,25 @@
+{
+  "timestamp_utc": "2026-11-03T14:43:54Z",
+  "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": "3.12.14",
+  "gpu": {
+    "error": "FileNotFoundError"
+  },
+  "ollama": {
+    "error": "FileNotFoundError"
+  },
+  "dotnet": {
+    "error": "FileNotFoundError"
+  },
+  "node": {
+    "exit_code": 0,
+    "stdout": "v24.22.1",
+    "stderr": ""
+  },
+  "ram": {
+    "exit_code": 0,
+    "stdout": "total        used        free      shared  buff/cache   available\nMem:     35743748096   783634432 35235328000      163840    47722496 34960113664\nSwap:              0           0           0",
+    "stderr": ""
+  },
+  "cpu_count": 5
+}

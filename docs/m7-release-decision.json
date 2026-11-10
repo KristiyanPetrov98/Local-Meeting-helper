@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "source_digest": "cc68fe7388646c48ec7d42d9fc38a759bf73d450ae1a168d32c5062c64f2aaa7",
+  "release_ready": false,
+  "gates": [
+    {
+      "id": "portable_automated_validation",
+      "status": "passed",
+      "detail": "Full portable suites, startup, packaged workflows and sustained fixture integration must pass for this source."
+    },
+    {
+      "id": "dependency_advisories",
+      "status": "passed",
+      "detail": "Current npm, Python including Windows pins, and NuGet advisory checks must all pass."
+    },
+    {
+      "id": "target_laptop_measurements",
+      "status": "blocked",
+      "detail": "Complete the 90-minute Windows RTX 4080 Laptop run with concurrent transcription, Qwen3-VL 8B, real requests and valid citations."
+    },
+    {
+      "id": "windows_installer",
+      "status": "blocked",
+      "detail": "Build the full Windows runtime and NSIS installer on Windows, run its bundled smoke test, and supply the matching installer file/hash."
+    },
+    {
+      "id": "target_manual_review",
+      "status": "blocked",
+      "detail": "Record clean-machine installation and real meeting quality/privacy/sharing/offline/license checks against this build. Telemetry alone cannot establish them."
+    }
+  ],
+  "decision_scope": "Evidence qualification, not code signing or publication. Operator evidence is an attestation, not an independent audit.",
+  "timestamp_utc": "2026-11-09T13:52:49.814906+00:00",
+  "evidence_errors": []
+}

@@ -1,0 +1,10 @@
+{
+  "bundled_backend_started": true,
+  "checkout_independent": true,
+  "actual_bundled_parser_worker": true,
+  "document_ingestion_and_citations": true,
+  "offline_core_checks": "passed",
+  "missing_assets": "correctly blocked",
+  "real_models": "unrun",
+  "platform": "posix"
+}

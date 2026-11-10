@@ -1,0 +1,5 @@
+fastapi==0.141.1
+uvicorn==0.52.1
+websockets==15.0.1
+# Include Windows runtime dependency in cross-platform hash locks.
+colorama==0.4.6

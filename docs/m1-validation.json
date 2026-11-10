@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-06",
+  "platform": "Linux x64; Xorg dummy display",
+  "m0_audit": {
+    "files_present": true,
+    "portable_tests_passed": 5,
+    "gpu_windows_feasibility": "unverified"
+  },
+  "tests": {
+    "api_pytest": 8,
+    "shell_vitest": 4,
+    "electron_playwright": 3,
+    "m0_unittest": 5
+  },
+  "failures_final": 0,
+  "skipped": 0,
+  "typecheck": "passed",
+  "production_build": "passed",
+  "clean_python_hash_lock_install": "passed",
+  "npm_lock_install": "passed",
+  "electron_os_sandbox_disabled": false,
+  "x11_hotkey_delivery_test": "passed",
+  "windows_native_acceptance": "unrun",
+  "rtx4080_benchmarks": "unrun",
+  "stopped_after": "M1",
+  "report": "docs/milestone-1.md"
+}

@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-08",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": "3.12.14",
+  "sqlite": "3.53.1",
+  "packages": {
+    "langdetect": "1.0.9",
+    "six": "1.17.0",
+    "httpx": "0.28.1",
+    "fastapi": "0.141.1",
+    "pydantic": "2.14.3",
+    "numpy": "2.2.6"
+  },
+  "generation_model": "qwen3-vl:8b-instruct-q4_K_M",
+  "context_tokens": 4096,
+  "new_direct_dependency": "langdetect==1.0.9",
+  "new_transitive_dependency": "six==1.17.0",
+  "lock": "services/api/requirements-assistance.lock",
+  "ollama_cli_present": false,
+  "nvidia_smi_present": false,
+  "ollama_service_reachable": false,
+  "generation_model_digest": null,
+  "registry_access": "Configured proxy CONNECT 403, reproduced 2026-11-08; no TLS/policy bypass",
+  "pip_check": "passed",
+  "windows_setup": "unrun; PowerShell unavailable in this Linux environment"
+}

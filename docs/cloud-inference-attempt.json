@@ -1,0 +1,45 @@
+{
+  "inventory": {
+    "timestamp_utc": "2026-11-03T14:46:15Z",
+    "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.12.14",
+    "gpu": {
+      "error": "FileNotFoundError"
+    },
+    "ollama": {
+      "error": "FileNotFoundError"
+    },
+    "dotnet": {
+      "error": "FileNotFoundError"
+    },
+    "node": {
+      "exit_code": 0,
+      "stdout": "v24.22.1",
+      "stderr": ""
+    },
+    "ram": {
+      "exit_code": 0,
+      "stdout": "total        used        free      shared  buff/cache   available\nMem:     35743748096   796221440 35222466560      163840    48263168 34947526656\nSwap:              0           0           0",
+      "stderr": ""
+    },
+    "cpu_count": 5
+  },
+  "config": {
+    "mode": "run",
+    "model": "qwen3-vl:8b-instruct-q4_K_M",
+    "context": 4096,
+    "seconds": 300,
+    "interval": 10,
+    "asr": "none",
+    "consent": false,
+    "asr_only": false,
+    "audio_device": -1,
+    "language": "en",
+    "whisper_model": "medium",
+    "cpu_threads": 8,
+    "prompt_repetitions": 1,
+    "image": null
+  },
+  "errors": [],
+  "status": "blocked_no_nvidia_smi"
+}

@@ -1,0 +1,5 @@
+# Direct dependency pins; NOT a fully resolved transitive lock.
+# Resolve and review a Windows lock before claiming reproducible installation.
+faster-whisper==1.2.1
+PyAudioWPatch==0.2.12.7
+windows-capture==1.5.0

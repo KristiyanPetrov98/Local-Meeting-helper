@@ -1,0 +1,42 @@
+appId: com.pm-copilot.desktop
+productName: PM Copilot
+asar: true
+copyright: Copyright PM Copilot contributors
+artifactName: PM-Copilot-${version}-${arch}-Setup.${ext}
+directories:
+  output: release
+files:
+  - apps/desktop/dist/*.cjs
+  - package.json
+  - '!node_modules/**'
+extraResources:
+  - from: build/backend/pm-copilot-api
+    to: backend/pm-copilot-api
+  - from: apps/web/dist
+    to: web
+  - from: build/helpers/audio
+    to: helpers/audio
+  - from: build/helpers/screen
+    to: helpers/screen
+  - from: build/notices
+    to: notices
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  signAndEditExecutable: false
+  requestedExecutionLevel: asInvoker
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  runAfterFinish: false
+  deleteAppDataOnUninstall: false
+  uninstallDisplayName: PM Copilot
+publish: null
+linux:
+  target: dir
+beforePack: packaging/before-pack.cjs

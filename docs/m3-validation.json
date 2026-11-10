@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-06",
+  "milestone": "M3 implementation; Windows acceptance pending",
+  "m2": "pending by explicit request",
+  "platform": "Linux x64; .NET SDK 8.0.427; Python 3.12.14; Electron on Xorg :99",
+  "tests_passed": {
+    "api_pipeline": 24,
+    "native_dotnet": 3,
+    "electron_playwright": 5,
+    "shell_vitest": 4,
+    "m0_unittest": 5
+  },
+  "total_passed": 41,
+  "failed_final": 0,
+  "skipped_linux": 0,
+  "typecheck": "passed",
+  "web_desktop_build": "passed",
+  "windows_x64_helper_cross_publish": "passed",
+  "asr_hash_lock_install_and_pip_check": "passed",
+  "optional_diarization_windows_lock": "resolved only; full installation unrun",
+  "actual_offline_silero_vad_silence": "passed; no recognition claim",
+  "actual_worker_missing_model_preflight": "failed closed; exit 2; worker_start_HFValidationError",
+  "helper_linux_preflight": "windows_required; exit 2",
+  "hf_model_access": "proxy CONNECT 403; weights unavailable",
+  "whisper_medium_recognition": "unrun",
+  "community1_inference": "unrun",
+  "live_windows_meet_capture": "unrun",
+  "rtx4080_vram_latency_concurrency": "unrun",
+  "m4_m7": "not started",
+  "report": "docs/milestone-3.md"
+}

@@ -1,0 +1,29 @@
+{
+  "scope": "Portable fixture integration; real subprocess pipes, parser, SQLite, PNG decoding and orchestration. No WASAPI, WGC, Whisper or Ollama inference.",
+  "duration_seconds": 60.679909976999625,
+  "status": "passed",
+  "audio_counts": {
+    "packets": 1192,
+    "gaps": 0,
+    "dropped_chunks": 0,
+    "segments": 32,
+    "asr_errors": 0,
+    "reconnects": 0,
+    "diarization_errors": 0,
+    "local_packets": 596,
+    "local_audible_packets": 596,
+    "remote_packets": 596,
+    "remote_audible_packets": 596,
+    "last_asr_ms": 53,
+    "last_chunk_lag_ms": 439
+  },
+  "maximum_queue_depth": 1,
+  "manual_requests": 46,
+  "manual_fixture_latency_median_ms": 180.40423049751553,
+  "backend_rss_start_mib": 268.97265625,
+  "backend_rss_end_mib": 270.58984375,
+  "backend_rss_max_mib": 270.58984375,
+  "media_and_token_canaries_absent": true,
+  "restart_and_project_isolation_passed": true,
+  "target_hardware_qualified": false
+}

@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-09",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": "3.12.14",
+  "packages": {
+    "Pillow": "13.0.0",
+    "langdetect": "1.0.9",
+    "httpx": "0.28.1",
+    "fastapi": "0.141.1",
+    "numpy": "2.2.6"
+  },
+  "new_python_packages": [],
+  "windows_sdk_reference": "Microsoft.Windows.SDK.NET.Ref 10.0.19041.56 (pinned in csproj)",
+  "dotnet_sdk": "8.0.427",
+  "ollama_cli_present": false,
+  "nvidia_smi_present": false,
+  "actual_probe": {
+    "gpus": [],
+    "resident": [],
+    "reason": "NVIDIA memory measurements unavailable; manual inference uses CPU."
+  },
+  "generation_model": "qwen3-vl:8b-instruct-q4_K_M",
+  "generation_budget_mib": 8192,
+  "budget_status": "provisional estimate, not measured model allocation",
+  "reserve_mib": 2048,
+  "wgc_execution": "unrun: Linux has no Windows.Graphics.Capture",
+  "real_model_latency_ms": null,
+  "rtx4080_peak_vram_mib": null,
+  "registry_access": "Configured proxy CONNECT 403 on 2026-11-09; no policy or TLS bypass"
+}
