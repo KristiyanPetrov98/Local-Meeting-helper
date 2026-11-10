@@ -38,7 +38,7 @@ jobs:
       - run: |
           New-Item -ItemType Directory -Force build | Out-Null
           & .\scripts\package-windows.ps1 *>&1 | Tee-Object -FilePath build/windows-build.log
-        shell: powershell
+        shell: pwsh
       - uses: actions/upload-artifact@v4
         with:
           name: pm-copilot-windows-installer-candidate
@@ -55,11 +55,15 @@ jobs:
             build/notices/**
       - name: Summarize build failure
         if: failure()
-        shell: powershell
+        shell: pwsh
         run: |
           if (Test-Path build/windows-build.log) {
             $tail = (Get-Content build/windows-build.log -Tail 100) -join "`n"
-            if ($env:GH_TOKEN) { $tail = $tail.Replace($env:GH_TOKEN, '[redacted]') }
+            foreach ($entry in [Environment]::GetEnvironmentVariables().GetEnumerator()) {
+              if ($entry.Key -match 'TOKEN|SECRET|PASSWORD|API_KEY' -and ([string]$entry.Value).Length -ge 8) { $tail = $tail.Replace([string]$entry.Value, '[redacted]') }
+            }
             @('### Windows packaging diagnostic', '', '```text', $tail, '```') | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
+            $annotation = $tail.Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+            Write-Host "::error title=Windows packaging diagnostic::$annotation"
           }
 # Builds a candidate; does not publish, sign, or qualify a clean Windows laptop.
